@@ -6,8 +6,8 @@ source:
     delimiter: ","
 
 target:
-  path: "/Users/admin/PycharmProjects/taf/input_files/IPL Matches 2008-2020.csv"
-  type: "csv"
+  path: "/Users/admin/PycharmProjects/taf/input_files/userdata1_t.parquet"
+  type: "parquet"
   options:
     header: True
     delimiter: ","

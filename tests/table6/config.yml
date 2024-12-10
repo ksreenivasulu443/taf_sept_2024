@@ -1,0 +1,19 @@
+source:
+  type: "database"
+  options:
+    table: "employees"
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    user: "postgres"
+    password: "Dharmavaram1@"
+    driver: "org.postgresql.Driver"
+    port: 5432
+
+target:
+  type: "database"
+  options:
+    table: "employees"
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    user: "postgres"
+    password: "Dharmavaram1@"
+    driver: "org.postgresql.Driver"
+    port: 5432

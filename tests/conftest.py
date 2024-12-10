@@ -1,10 +1,18 @@
 from pyspark.sql import SparkSession
 import pytest
 import yaml
+import os
 
 @pytest.fixture(scope='session')
-def spark_session():
-    spark = SparkSession.builder.master('local[1]').appName('pytest automation').getOrCreate()
+def spark_session(request):
+    dir_path = request.node.fspath.dirname
+    jar_path = '/Users/admin/PycharmProjects/taf/jars/postgresql-42.7.3.jar'
+    spark = SparkSession.builder.master("local[2]") \
+        .appName("pytest_framework") \
+        .config("spark.jars", jar_path) \
+        .config("spark.driver.extraClassPath", jar_path) \
+        .config("spark.executor.extraClassPath", jar_path) \
+        .getOrCreate()
     return spark
 
 @pytest.fixture(scope='module')
@@ -27,14 +35,34 @@ def read_file(config_data,spark):
         df = spark.read.format('avro').load(config_data['path'])
     return df
 
+def read_db(config_data,spark):
+    df = spark.read.format("jdbc"). \
+        option("url", config_data['options']['url']). \
+        option("user", config_data['options']['user']). \
+        option("password", config_data['options']['password']). \
+        option("dbtable", config_data['options']['table']). \
+        option("driver", config_data['options']['driver']).load()
+    return df
+
 @pytest.fixture(scope='module')
 def read_data(read_config,spark_session):
     spark = spark_session
     config_data = read_config
     source_config = config_data['source']
     target_config = config_data['target']
-    source = read_file(config_data = source_config,spark=spark)
-    target = read_file(config_data =target_config,spark=spark)
+    if source_config['type'] == 'database':
+        source = read_db(source_config,spark)
+    else:
+        source = read_file(config_data = source_config,spark=spark)
+
+    if target_config['type'] == 'database':
+        target = read_db(target_config,spark)
+    else:
+        target = read_file(config_data =target_config,spark=spark)
+
+
+
+
 
     return source, target
 

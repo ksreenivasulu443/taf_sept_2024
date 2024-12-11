@@ -17,3 +17,7 @@ target:
     password: "Dharmavaram1@"
     driver: "org.postgresql.Driver"
     port: 5432
+
+validations:
+  duplicate_check:
+    key_columns: ["id"]

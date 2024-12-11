@@ -63,42 +63,42 @@ def read_data(read_config,spark_session):
     return source, target
 
 
-@pytest.fixture(scope="session")
-def credentials(pytestconfig):
-    """Fixture to load credentials for the test session."""
-    env = pytestconfig.getoption("--env", default="dev")
-    print(f"Loading credentials for environment: {env}")
-    return load_credentials(env)
-
-
-@pytest.fixture(scope="session")
-def pytestconfig(request):
-    """Fixture to access pytest configuration options."""
-    return request.config
-
-def pytest_addoption(parser):
-    """Add custom command-line options to pytest."""
-    parser.addoption(
-        "--env",
-        action="store",
-        default="dev",
-        help="Specify the environment to run tests (e.g., dev, prod)."
-    )
-
-
-
-
-def load_credentials(env="dev"):
-    """Load credentials from the centralized YAML file."""
-    credentials_path = os.path.join("credentials", "credentials.yml")
-    print(credentials_path)
-    #print(credentials_path)
-    if not os.path.exists(credentials_path):
-        raise FileNotFoundError(f"Credentials file not found: {credentials_path}")
-    with open(credentials_path, "r") as file:
-        credentials = yaml.safe_load(file)
-    if env not in credentials:
-        raise KeyError(f"Environment '{env}' not found in credentials file.")
-    print('credentials', credentials[env])
-    return credentials[env]
+# @pytest.fixture(scope="session")
+# def credentials(pytestconfig):
+#     """Fixture to load credentials for the test session."""
+#     env = pytestconfig.getoption("--env", default="dev")
+#     print(f"Loading credentials for environment: {env}")
+#     return load_credentials(env)
+#
+#
+# @pytest.fixture(scope="session")
+# def pytestconfig(request):
+#     """Fixture to access pytest configuration options."""
+#     return request.config
+#
+# def pytest_addoption(parser):
+#     """Add custom command-line options to pytest."""
+#     parser.addoption(
+#         "--env",
+#         action="store",
+#         default="dev",
+#         help="Specify the environment to run tests (e.g., dev, prod)."
+#     )
+#
+#
+#
+#
+# def load_credentials(env="dev"):
+#     """Load credentials from the centralized YAML file."""
+#     credentials_path = os.path.join("credentials", "credentials.yml")
+#     print(credentials_path)
+#     #print(credentials_path)
+#     if not os.path.exists(credentials_path):
+#         raise FileNotFoundError(f"Credentials file not found: {credentials_path}")
+#     with open(credentials_path, "r") as file:
+#         credentials = yaml.safe_load(file)
+#     if env not in credentials:
+#         raise KeyError(f"Environment '{env}' not found in credentials file.")
+#     print('credentials', credentials[env])
+#     return credentials[env]
 

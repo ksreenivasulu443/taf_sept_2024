@@ -1,7 +1,8 @@
-import yaml
+import datetime
 
+# Create a single report filename for the session
+timestamp = datetime.datetime.now().strftime("%d%m%Y%H%M%S")
+print("datetime.datetime.now()",datetime.datetime.now())
+report_filename = f"report_{timestamp}.txt"
 
-with open('/Users/admin/PycharmProjects/taf/tests/table3/config.yml','r') as f:
-    config_data = yaml.safe_load(f)
-    print("source config", config_data['source'])
-    print("target config", config_data['target'])
+print(report_filename)

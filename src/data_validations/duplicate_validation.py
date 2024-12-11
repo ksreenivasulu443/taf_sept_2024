@@ -1,15 +1,17 @@
-def duplicate_check(target_df, key_col):
-    # target_df.createOrReplacetempView('target_df')
-    # dup = spark.sql("select key_column, count(1) from target_df group by key_column having count(1)>1")
+from src.utility.report_lib import write_output
+def duplicate_check(target_df, key_col,config_data):
     dup = target_df.groupBy(key_col).count().filter('count>1')
     dup_count = dup.count()
     if dup_count>0:
         print("duplicates present, below are the sample duplicates")
         dup.show(5)
         status = 'FAIL'
+        write_output(validation_type='duplicate_check',status=status,details=dup.show())
+
     else:
         print("duplicates are not present")
         status ='PASS'
+        write_output(validation_type='duplicate_check', status=status, details=dup)
     return status
 
 

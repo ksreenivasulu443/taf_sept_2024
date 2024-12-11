@@ -1,0 +1,31 @@
+dev:
+  postgres:
+    db_url: "jdbc:postgresql://localhost:5432/postgres"
+    user: "postgres"
+    password: "Dharmavaram1@"
+    driver: "org.postgresql.Driver"
+    port: 5432
+
+  oracle:
+    username: "oracle_user"
+    password: "oracle_password"
+    connection_string: "jdbc:oracle:thin:@//dev-db-host:1521/ORCL"
+
+  adls:
+    account_name: "myadlsdevaccount"
+    account_key: "myadlsdevkey"
+
+qa:
+  adls:
+    account_name: "myadlsdevaccount"
+    account_key: "myadlsdevkey"
+  oracle:
+    username: "oracle_user"
+    password: "oracle_password"
+    connection_string: "jdbc:oracle:thin:@//dev-db-host:1521/ORCL"
+  postgres:
+    username: "postgres_user"
+    password: "postgres_password"
+    host: "dev-postgres-host"
+    port: 5432
+    database: "my_database"

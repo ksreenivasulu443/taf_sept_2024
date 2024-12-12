@@ -15,3 +15,5 @@ target:
 validations:
   duplicate_check:
     key_columns: ["Identifier"]
+  null_check:
+    null_columns: ["Identifier",'middle_initial']

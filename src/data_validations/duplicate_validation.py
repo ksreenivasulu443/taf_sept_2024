@@ -1,17 +1,21 @@
 from src.utility.report_lib import write_output
-def duplicate_check(target_df, key_col,config_data):
-    dup = target_df.groupBy(key_col).count().filter('count>1')
-    dup_count = dup.count()
-    if dup_count>0:
-        print("duplicates present, below are the sample duplicates")
-        dup.show(5)
-        status = 'FAIL'
-        write_output(validation_type='duplicate_check',status=status,details=dup.show())
 
+def duplicate_check(df, key_col):
+    """Validate that there are no duplicate rows in the specified columns."""
+    duplicates = df.groupBy(key_col).count().filter("count > 1")
+    duplicate_count = duplicates.count()
+
+    if duplicate_count > 0:
+        failed_records = duplicates.limit(5).collect()  # Get the first 5 failing rows
+        failed_preview = [row.asDict() for row in failed_records]  # Convert rows to a dictionary for display
+        status = "FAIL"
+        write_output(
+            "Duplicate Check",
+            status,
+            f"Duplicate Count: {duplicate_count}, Sample Failed Records: {failed_preview}"
+        )
+        return status
     else:
-        print("duplicates are not present")
-        status ='PASS'
-        write_output(validation_type='duplicate_check', status=status, details=dup)
-    return status
-
-
+        status = "PASS"
+        write_output("Duplicate Check", status, "No duplicates found.")
+        return status

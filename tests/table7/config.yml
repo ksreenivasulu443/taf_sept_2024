@@ -21,3 +21,5 @@ validations:
     null_columns: ["Identifier",'middle_initial']
   uniqueness_check:
     unique_columns: [ "Identifier",'surname' ]
+  data_compare_check:
+    key_column: ["identifier"]

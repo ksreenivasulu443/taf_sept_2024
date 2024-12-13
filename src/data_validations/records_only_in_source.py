@@ -1,8 +1,7 @@
 from src.utility.report_lib import write_output
 
-def records_only_in_source(source_df, target_df, config):
+def records_only_in_source(source_df, target_df, key_columns):
     """Validate records present only in the source."""
-    key_columns = config.get("key_columns", [])
     only_in_source = source_df.select(key_columns).exceptAll(target_df.select(key_columns))
 
     count_only_in_source = only_in_source.count()

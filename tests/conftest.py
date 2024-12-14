@@ -1,3 +1,5 @@
+from unicodedata import lookup
+
 from pyspark.sql import SparkSession
 import pytest
 import yaml
@@ -9,7 +11,7 @@ from src.utility.general_utility import flatten
 
 @pytest.fixture(scope='session')
 def spark_session(request):
-    dir_path = request.node.fspath.dirname
+    #dir_path = request.node.fspath.dirname
     jar_path = '/Users/admin/PycharmProjects/taf/jars/postgresql-42.7.3.jar'
     spark = SparkSession.builder.master("local[2]") \
         .appName("pytest_framework") \
@@ -59,23 +61,26 @@ def read_file(config_data,spark, dir_path=None):
     return df
 
 def read_db(config_data,spark,dir_path):
+    creds = load_credentials()
+    cred_lookup = config_data['cred_lookup']
+    creds = creds[cred_lookup]
     if config_data['transformation_sql'] == 'Y':
         sql_query= read_query(dir_path)
         print("sql_query", sql_query)
         df = spark.read.format("jdbc"). \
-            option("url", config_data['options']['url']). \
-            option("user", config_data['options']['user']). \
-            option("password", config_data['options']['password']). \
+            option("url", creds['url']). \
+            option("user", creds['user']). \
+            option("password", creds['password']). \
             option("query", sql_query). \
-            option("driver", config_data['options']['driver']).load()
+            option("driver", creds['driver']).load()
 
     else:
         df = spark.read.format("jdbc"). \
-            option("url", config_data['options']['url']). \
-            option("user", config_data['options']['user']). \
-            option("password", config_data['options']['password']). \
+            option("url", creds['url']). \
+            option("user", creds['user']). \
+            option("password", creds['password']). \
             option("dbtable", config_data['options']['table']). \
-            option("driver", config_data['options']['driver']).load()
+            option("driver", creds['driver']).load()
     return df
 
 @pytest.fixture(scope='module')
@@ -99,43 +104,17 @@ def read_data(read_config,spark_session,request ):
 
 
 
+def load_credentials(env="qa"):
+    """Load credentials from the centralized YAML file."""
+    taf_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    credentials_path = taf_path+'/project_config/cred_config.yml'
 
-# @pytest.fixture(scope="session")
-# def credentials(pytestconfig):
-#     """Fixture to load credentials for the test session."""
-#     env = pytestconfig.getoption("--env", default="dev")
-#     print(f"Loading credentials for environment: {env}")
-#     return load_credentials(env)
-#
-#
-# @pytest.fixture(scope="session")
-# def pytestconfig(request):
-#     """Fixture to access pytest configuration options."""
-#     return request.config
-#
-# def pytest_addoption(parser):
-#     """Add custom command-line options to pytest."""
-#     parser.addoption(
-#         "--env",
-#         action="store",
-#         default="dev",
-#         help="Specify the environment to run tests (e.g., dev, prod)."
-#     )
-#
-#
-#
-#
-# def load_credentials(env="dev"):
-#     """Load credentials from the centralized YAML file."""
-#     credentials_path = os.path.join("credentials", "credentials.yml")
-#     print(credentials_path)
-#     #print(credentials_path)
-#     if not os.path.exists(credentials_path):
-#         raise FileNotFoundError(f"Credentials file not found: {credentials_path}")
-#     with open(credentials_path, "r") as file:
-#         credentials = yaml.safe_load(file)
-#     if env not in credentials:
-#         raise KeyError(f"Environment '{env}' not found in credentials file.")
-#     print('credentials', credentials[env])
-#     return credentials[env]
+    with open(credentials_path, "r") as file:
+        credentials = yaml.safe_load(file)
+        print(credentials[env])
+    return credentials[env]
+
+load_credentials('qa')
+
+
 

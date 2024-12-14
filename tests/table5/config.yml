@@ -9,10 +9,5 @@ source:
 target:
   type: "database"
   transformation_sql : "Y"
-  options:
-    table: "employees"
-    url: "jdbc:postgresql://localhost:5432/postgres"
-    user: "postgres"
-    password: "Dharmavaram1@"
-    driver: "org.postgresql.Driver"
-    port: 5432
+  table: "employees"
+  cred_lookup: "postgres"

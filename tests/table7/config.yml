@@ -7,7 +7,7 @@ source:
     delimiter: ","
 
 target:
-  path: "/Users/admin/PycharmProjects/taf/input_files/Contact_info_s.csv"
+  path: "/Users/admin/PycharmProjects/taf/input_files/Contact_info_t.csv"
   type: "csv"
   schema: "N"
   options:

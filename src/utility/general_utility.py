@@ -10,7 +10,6 @@ def flatten(df):
     while len(complex_fields) != 0:
         col_name = list(complex_fields.keys())[0]
         print("Processing :" + col_name + " Type : " + str(type(complex_fields[col_name])))
-
         # if StructType then convert all sub element to columns.
         # i.e. flatten structs
         if type(complex_fields[col_name]) == StructType:
@@ -24,4 +23,5 @@ def flatten(df):
         elif type(complex_fields[col_name]) == ArrayType:
             df = df.withColumn(col_name, explode_outer(col_name))
             print("after explode o/p of df")
-            df.show()
+            #df.show()
+    return df

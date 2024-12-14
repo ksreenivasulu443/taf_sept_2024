@@ -1,1 +1,1 @@
-select * from employees
+SELECT * FROM public.employees where id =1

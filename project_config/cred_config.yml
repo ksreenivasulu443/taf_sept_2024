@@ -22,3 +22,20 @@ qa:
     password: "Dharmavaram1@"
     driver: "org.postgresql.Driver"
     port: 5432
+
+  oracle:
+    username: "oracle_user"
+    password: "oracle_password"
+    connection_string: "jdbc:oracle:thin:@//dev-db-host:1521/ORCL"
+
+prod:
+  postgres:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    user: "postgres"
+    password: "Dharmavaram1@"
+    driver: "org.postgresql.Driver"
+    port: 5432
+  oracle:
+    username: "oracle_user"
+    password: "oracle_password"
+    connection_string: "jdbc:oracle:thin:@//dev-db-host:1521/ORCL"

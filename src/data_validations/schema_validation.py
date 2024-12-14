@@ -5,6 +5,8 @@ def schema_check(source, target,spark):
     source_schema = source.schema
     target_schema = target.schema
 
+
+
     # Convert schemas to DataFrames
     source_schema_df = spark.createDataFrame(
         [(field.name.lower(), field.dataType.simpleString()) for field in source_schema],
@@ -37,7 +39,7 @@ def schema_check(source, target,spark):
     failed_count = failed.count()
 
     if failed_count > 0:
-        failed_records = failed.collect()  # Get the first 5 failing rows
+        failed_records = failed.collect()
         failed_preview = [row.asDict() for row in failed_records]  # Convert rows to a dictionary for display
         status = "FAIL"
         write_output(

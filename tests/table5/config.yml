@@ -1,13 +1,10 @@
 source:
-  path: "/Users/admin/PycharmProjects/taf/input_files/IPL Matches 2008-2020.csv"
-  type: "csv"
-  schema : "N"
-  options:
-    header: True
-    delimiter: ","
+  type: "database"
+  transformation_sql : "Y"
+  cred_lookup: "postgres"
 
 target:
   type: "database"
-  transformation_sql : "Y"
-  table: "employees"
+  transformation_sql : "N"
+  table: 'employee'
   cred_lookup: "postgres"

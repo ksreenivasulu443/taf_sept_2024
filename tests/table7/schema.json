@@ -2,7 +2,7 @@
   "fields": [
     {
       "metadata": {},
-      "name": "Identifier",
+      "name": "identifier",
       "nullable": true,
       "type": "long"
     },

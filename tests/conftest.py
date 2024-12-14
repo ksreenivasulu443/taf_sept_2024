@@ -114,7 +114,7 @@ def load_credentials(env="qa"):
         print(credentials[env])
     return credentials[env]
 
-load_credentials('qa')
+
 
 
 

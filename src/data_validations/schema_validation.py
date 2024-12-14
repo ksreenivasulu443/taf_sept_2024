@@ -33,6 +33,7 @@ def schema_check(source, target,spark):
 
     # Filter only rows where the status is 'fail'
     failed = schema_comparison.filter(col("status") == "fail")
+    failed.show()
     failed_count = failed.count()
 
     if failed_count > 0:
@@ -47,5 +48,5 @@ def schema_check(source, target,spark):
         return status
     else:
         status = "PASS"
-        write_output("scheck Check", status, "Schema is correct!.")
+        write_output("scheck Check", status, "Schema is correct!")
         return status

@@ -31,7 +31,7 @@ def test_null_check(read_data,read_config):
     null_cols = config['validations']['null_check']['null_columns']
 
     print("null_cols ", null_cols)
-    assert null_value_check(df=target, null_cols=null_cols) =='PASSx'
+    assert null_value_check(df=target, null_cols=null_cols) =='PASS'
 
 def test_uniqueness_check(read_data,read_config):
     source, target = read_data

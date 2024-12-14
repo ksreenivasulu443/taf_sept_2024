@@ -4,14 +4,11 @@ from src.utility.report_lib import write_output
 
 
 def data_compare(source, target, key_column):
-
-    src_cnt = source.count()
-    tgt_cnt = target.count()
     columnList = source.columns
     smt = source.exceptAll(target).withColumn("datafrom", lit("source"))
     tms = target.exceptAll(source).withColumn("datafrom", lit("target"))
     failed = smt.union(tms)
-    failed.show()
+    #failed.show()
 
     failed_count = failed.count()
     if failed_count > 0:
@@ -47,7 +44,12 @@ def data_compare(source, target, key_column):
                                                         "True").otherwise("False")).filter(
                     f"comparison == False ").show()
 
-        return True
+        status ='FAIL'
+
+        return status
+    else:
+        status = 'PASS'
+        return status
 
 
 

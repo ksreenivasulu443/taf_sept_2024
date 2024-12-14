@@ -26,9 +26,9 @@ def null_value_check(df, null_cols):
     if failures:
         status = "FAIL"
         write_output("Null Value Check", status, f"Failures: {failures}")
-        return False
+        return status
     else:
         status = "PASS"
         write_output("Null Value Check", status, "No null values found.")
-        return True
+        return status
 

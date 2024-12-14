@@ -15,13 +15,13 @@ def data_compare(source, target, key_column):
         failed_records = failed.limit(5).collect()  # Get the first 5 failing rows
         failed_preview = [row.asDict() for row in failed_records]
         write_output(
-                "Uniqueness Check",
+                "data compare Check",
                 "FAIL",
                 f"Data mismatch data: {failed_preview}"
             )
     else:
         write_output(
-            "Uniqueness Check",
+            "data compare Check",
             "PASS",
             f"No mismatches found"
         )

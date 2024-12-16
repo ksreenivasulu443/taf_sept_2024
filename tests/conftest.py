@@ -79,7 +79,7 @@ def read_db(config_data,spark,dir_path):
             option("url", creds['url']). \
             option("user", creds['user']). \
             option("password", creds['password']). \
-            option("dbtable", config_data['options']['table']). \
+            option("dbtable", config_data['table']). \
             option("driver", creds['driver']).load()
     return df
 
@@ -113,6 +113,32 @@ def load_credentials(env="qa"):
         credentials = yaml.safe_load(file)
         print(credentials[env])
     return credentials[env]
+
+# conftest.py
+from pytest_html import extras
+
+def pytest_html_results_table_header(cells):
+    """Add a custom header for Failure Details in the HTML report."""
+    cells.insert(1, "Failure Details")
+
+def pytest_html_results_table_row(report, cells):
+    """Insert failure details for each test into the HTML report."""
+    if hasattr(report, "details"):
+        cells.insert(1, report.details)
+    else:
+        cells.insert(1, "N/A")
+
+def pytest_runtest_logreport(report):
+    """Attach failure details dynamically."""
+    if report.when == "call" and report.failed:
+        if hasattr(report, "details"):
+            report.details = (
+                f"Source count: {report.source_count}, "
+                f"Target count: {report.target_count}, "
+                f"Records only in Source: {report.fail_count_source}, "
+                f"Records only in Target: {report.fail_count_target}."
+            )
+
 
 
 

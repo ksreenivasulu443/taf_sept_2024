@@ -1,20 +1,22 @@
 source:
-  path: "/Users/admin/PycharmProjects/taf/input_files/employees.csv"
+  path: "/Users/admin/PycharmProjects/taf/input_files/Contact_info_s.csv"
+  type: "csv"
+  schema: "Y"
+  options:
+    header: True
+    delimiter: ","
+
+target:
+  path: "/Users/admin/PycharmProjects/taf/input_files/Contact_info_t.csv"
   type: "csv"
   schema: "N"
   options:
     header: True
     delimiter: ","
 
-target:
-  type: "database"
-  transformation_sql : "N"
-  table: 'employees'
-  cred_lookup: "postgres"
-
 validations:
   count_check:
-    key_columns: ["id"]
+    key_columns: ["Identifier"]
   duplicate_check:
     key_columns: ["Identifier"]
   null_check:

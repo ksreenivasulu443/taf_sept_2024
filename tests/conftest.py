@@ -24,12 +24,7 @@ def spark_session(request):
         .config("spark.executor.extraClassPath", jar_path) \
         .getOrCreate()
 
-    # adls_account_name = "septauto"  # Your ADLS account name
-    # adls_container_name = "raw"  # Your container name
-    # key = "6TR8QTDWIWj0EshX2YRzMln2dYylTAVUECMoLHE2JPo0SwXt9Kbybqpca96qNTnndDFGB/t4UbTo+AStbQROcg=="  # Your Account Key
-    #
-    # spark.conf.set(f"fs.azure.account.auth.type.{adls_account_name}.dfs.core.windows.net", "SharedKey")
-    # spark.conf.set(f"fs.azure.account.key.{adls_account_name}.dfs.core.windows.net", key)
+
 
     return spark
 

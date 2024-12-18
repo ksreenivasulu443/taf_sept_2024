@@ -1,6 +1,7 @@
 from src.utility.report_lib import write_output
 from src.data_validations.records_only_in_source import records_only_in_source
 from src.data_validations.records_only_in_target import records_only_in_target
+
 def count_check(source, target,key_columns):
     src_count = source.count()
     tgt_count = target.count()

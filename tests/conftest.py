@@ -12,13 +12,25 @@ from src.utility.general_utility import flatten
 @pytest.fixture(scope='session')
 def spark_session(request):
     #dir_path = request.node.fspath.dirname
-    jar_path = '/Users/admin/PycharmProjects/taf/jars/postgresql-42.7.3.jar'
+    snow_jar = '/Users/admin/PycharmProjects/test_automation_project/jar/snowflake-jdbc-3.14.3.jar'
+    postgres_jar = '/Users/admin/PycharmProjects/test_automation_project/jar/postgresql-42.2.5.jar'
+    azure_storage = '/Users/admin/PycharmProjects/test_automation_project/jar/azure-storage-8.6.6.jar'
+    hadoop_azure = '/Users/admin/PycharmProjects/test_automation_project/jar/hadoop-azure-3.3.1.jar'
+    jar_path = snow_jar + ',' + postgres_jar + ',' + azure_storage + ',' + hadoop_azure
     spark = SparkSession.builder.master("local[2]") \
         .appName("pytest_framework") \
         .config("spark.jars", jar_path) \
         .config("spark.driver.extraClassPath", jar_path) \
         .config("spark.executor.extraClassPath", jar_path) \
         .getOrCreate()
+
+    adls_account_name = "septauto"  # Your ADLS account name
+    adls_container_name = "raw"  # Your container name
+    key = "6TR8QTDWIWj0EshX2YRzMln2dYylTAVUECMoLHE2JPo0SwXt9Kbybqpca96qNTnndDFGB/t4UbTo+AStbQROcg=="  # Your Account Key
+
+    spark.conf.set(f"fs.azure.account.auth.type.{adls_account_name}.dfs.core.windows.net", "SharedKey")
+    spark.conf.set(f"fs.azure.account.key.{adls_account_name}.dfs.core.windows.net", key)
+
     return spark
 
 @pytest.fixture(scope='module')
@@ -80,6 +92,8 @@ def read_db(config_data,spark,dir_path):
             option("user", creds['user']). \
             option("password", creds['password']). \
             option("dbtable", config_data['table']). \
+            option("schema", creds['password']). \
+            option("database", config_data['table']). \
             option("driver", creds['driver']).load()
     return df
 

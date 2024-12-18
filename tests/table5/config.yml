@@ -8,7 +8,7 @@ source:
 
 target:
   type: "database"
-  transformation_sql : "N"
+  transformation_sql : "Y"
   table: 'employees'
   cred_lookup: "postgres"
 

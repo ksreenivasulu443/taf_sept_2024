@@ -23,10 +23,13 @@ qa:
     driver: "org.postgresql.Driver"
     port: 5432
 
-  oracle:
-    username: "oracle_user"
-    password: "oracle_password"
-    connection_string: "jdbc:oracle:thin:@//dev-db-host:1521/ORCL"
+  snowflake:
+    url: "jdbc:snowflake://oglxvsr-va28914.snowflakecomputing.com"
+    user: "KATSREEN100"
+    password: "Dharmavaram1@"
+    database: "NY_YELLO_TAXI"
+    schema: "QA"
+    driver: "net.snowflake.client.jdbc.SnowflakeDriver"
 
 prod:
   postgres:

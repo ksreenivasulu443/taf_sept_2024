@@ -1,0 +1,27 @@
+source:
+  path: "abfss://raw@septauto.dfs.core.windows.net/*.csv"
+  type: "csv"
+  schema: "N"
+  exclude_cols: "NA"
+  options:
+    header: "True"
+    delimiter: ","
+
+target:
+  type: "database"
+  transformation_sql : "N"
+  table: "NY_YELLO_TAXI.QA.TRIP_LOOKUP_RAW"
+  cred_lookup: "snowflake"
+  exclude_cols: ;["create_user","create_date","record_id"]
+
+validations:
+  count_check:
+    key_columns: ["LocationID"]
+  duplicate_check:
+    key_columns: ["LocationID"]
+  null_check:
+    null_columns: ["LocationID","Borough"]
+  uniqueness_check:
+    unique_columns: ["LocationID"]
+  data_compare_check:
+    key_column: ["LocationID"]

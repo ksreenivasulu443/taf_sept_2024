@@ -11,10 +11,14 @@ from pytest_html import extras
 @pytest.fixture(scope='session')
 def spark_session(request):
     #dir_path = request.node.fspath.dirname
-    snow_jar = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/snowflake-jdbc-3.14.3.jar'
-    postgres_jar = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/postgresql-42.7.3.jar'
-    azure_storage = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/azure-storage-8.6.6.jar'
-    hadoop_azure = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/hadoop-azure-3.3.1.jar'
+    snow_jar = 'C:\\Users\\Lenovo\\PycharmProjects\\taf\\JARs\\snowflake-jdbc-3.19.0.jar'
+    postgres_jar = 'C:\\Users\\Lenovo\\PycharmProjects\\taf\\JARs\\postgresql-42.6.0.jar'
+    azure_storage = 'C:\\Users\\Lenovo\\PycharmProjects\\taf\\JARs\\azure-storage-8.6.6.jar'
+    hadoop_azure = 'C:\\Users\\Lenovo\\PycharmProjects\\taf\\JARs\\hadoop-azure-3.3.1.jar'
+    # snow_jar = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/snowflake-jdbc-3.14.3.jar'
+    # postgres_jar = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/postgresql-42.7.3.jar'
+    # azure_storage = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/azure-storage-8.6.6.jar'
+    # hadoop_azure = 'C:/Users/Lenovo/PycharmProjects/taf_sept_2024/jars/hadoop-azure-3.3.1.jar'
     jar_path = snow_jar + ',' + postgres_jar + ',' + azure_storage + ',' + hadoop_azure
     spark = SparkSession.builder.master("local[2]") \
         .appName("pytest_framework") \
@@ -22,7 +26,14 @@ def spark_session(request):
         .config("spark.driver.extraClassPath", jar_path) \
         .config("spark.executor.extraClassPath", jar_path) \
         .getOrCreate()
-    return spark
+    adls_account_name = "septauto"  # Your ADLS account name
+    adls_container_name = "raw"  # Your container name
+    key = "6TR8QTDWIWj0EshX2YRzMln2dYylTAVUECMoLHE2JPo0SwXt9Kbybqpca96qNTnndDFGB/t4UbTo+AStbQROcg=="  # Your Account Key
+
+    spark.conf.set(f"fs.azure.account.auth.type.{adls_account_name}.dfs.core.windows.net", "SharedKey")
+    spark.conf.set(f"fs.azure.account.key.{adls_account_name}.dfs.core.windows.net", key)
+    yield spark
+    spark.stop()
 
 
 @pytest.fixture(scope='module')
@@ -106,8 +117,11 @@ def read_data(read_config, spark_session, request):
         target = read_db(config_data=target_config, spark=spark, dir_path=dir_path)
     else:
         target = read_file(config_data=target_config, spark=spark, dir_path=dir_path)
+    print("target_exclude", target_config['exclude_cols'])
 
-    return source, target
+    return source.drop(*source_config['exclude_cols']), target.drop(*target_config['exclude_cols'])
+
+
 
 
 def load_credentials(env="qa"):

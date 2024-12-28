@@ -1,0 +1,21 @@
+count_check: PASS
+Details: count is matching!
+
+Records Only in Source: PASS
+Details: No extra records found in source.
+
+Records Only in Target: PASS
+Details: No extra records found in target.
+
+Duplicate Check: PASS
+Details: No duplicates found.
+
+Null Value Check: PASS
+Details: No null values found.
+
+Uniqueness Check: PASS
+Details: Duplicate counts per column: {'LocationID': 0}
+
+Schema Check: FAIL
+Details: schema failed columns Count: 4, Sample Failed Records: [{'source_col_name': None, 'target_col_name': 'create_date', 'source_data_type': None, 'target_data_type': 'timestamp', 'status': 'fail'}, {'source_col_name': None, 'target_col_name': 'create_user', 'source_data_type': None, 'target_data_type': 'string', 'status': 'fail'}, {'source_col_name': 'locationid', 'target_col_name': 'locationid', 'source_data_type': 'int', 'target_data_type': 'bigint', 'status': 'fail'}, {'source_col_name': None, 'target_col_name': 'record_id', 'source_data_type': None, 'target_data_type': 'string', 'status': 'fail'}]
+

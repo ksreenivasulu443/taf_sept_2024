@@ -1,5 +1,5 @@
 source:
-  path: "abfss://raw@septauto.dfs.core.windows.net/*.csv"
+  path: "abfss://raw@septauto.dfs.core.windows.net/taxi_zone_lookup.csv"
   type: "csv"
   schema: "N"
   exclude_cols: "NA"

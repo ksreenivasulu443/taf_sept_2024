@@ -12,8 +12,8 @@ from src.data_validations.schema_validation import schema_check
 
 def test_count_check(read_data,read_config):
     source,target = read_data
-    print(source.columns)
-    print(target.columns)
+    print(source.printSchema())
+    print(target.printSchema())
     config = read_config
     key_columns = config['validations']['count_check']['key_columns']
     print("key col", key_columns)
@@ -55,4 +55,8 @@ def test_schema_check(read_data, read_config,spark_session):
     config = read_config
     spark = spark_session
     assert schema_check(source=source,target=target,spark=spark) == "PASS"
+
+
+
+
 

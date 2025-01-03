@@ -1,9 +1,0 @@
-count_check: PASS
-Details: count is matching!
-
-Records Only in Source: FAIL
-Details: Count: 1000, Sample Failed Records: [{'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 10, 4)}, {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 48, 41)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 51, 57)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 6, 23)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 6, 23)}]
-
-Records Only in Target: FAIL
-Details: Count: 1000, Sample Failed Records: [{'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 39, 10)}, {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 22, 48)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 17, 20)}, {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 15, 3)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 22, 11)}]
-

@@ -28,7 +28,7 @@ def main():
     )
     parser.add_argument(
         "--test-dir",
-        default="tests",
+        default="tests/table12",
         help="Specify the directory containing test files (default: tests)."
     )
     parser.add_argument(

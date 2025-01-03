@@ -1,9 +1,0 @@
-count_check: FAIL
-Details: details below...
-
-Records Only in Source: FAIL
-Details: Count: 3633030, Sample Failed Records: [{'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 10, 4)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 10, 4)}, {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 48, 41)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 51, 57)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 9, 1, 0, 51, 57)}]
-
-Records Only in Target: FAIL
-Details: Count: 20, Sample Failed Records: [{'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 25)}, {'VendorID': 2, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 36, 54)}, {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 29, 49)}, {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 59, 35)}, {'VendorID': 1, 'tpep_pickup_datetime': datetime.datetime(2024, 8, 31, 17, 5, 51)}]
-

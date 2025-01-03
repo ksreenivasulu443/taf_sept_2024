@@ -1,7 +1,8 @@
 source:
-  path: "abfss://raw@septauto.dfs.core.windows.net/yellow_tripdata_2024-09.parquet"
+  path: "abfss://raw@septauto.dfs.core.windows.net/*.parquet"
   type: "parquet"
   schema: "N"
+  exclude_cols: "NA"
   options:
     header: "NA"
     delimiter: "NA"
@@ -11,6 +12,7 @@ target:
   transformation_sql : "N"
   table: "NY_YELLO_TAXI.QA.TRIP_DATA_RAW"
   cred_lookup: "snowflake"
+  exclude_cols: ["create_user","create_date","record_id"]
 
 validations:
   count_check:

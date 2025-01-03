@@ -1,9 +1,0 @@
-count_check: PASS
-Details: count is matching!
-
-Records Only in Source: PASS
-Details: No extra records found in source.
-
-Records Only in Target: PASS
-Details: No extra records found in target.
-

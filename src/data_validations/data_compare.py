@@ -33,7 +33,7 @@ def data_compare(source, target, key_column):
         print("keycolumns", key_column)
         for column in columnList:
             print(column.lower())
-            if column.lower() not in key_column:
+            if column not in key_column:
                 key_column.append(column)
                 temp_source = source.select(key_column).withColumnRenamed(column, "source_" + column)
 

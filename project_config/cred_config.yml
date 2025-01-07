@@ -30,6 +30,12 @@ qa:
     database: "NY_YELLO_TAXI"
     schema: "QA"
     driver: "net.snowflake.client.jdbc.SnowflakeDriver"
+  sqlserver:
+    url: "jdbc:sqlserver://septauto.database.windows.net:1433;database=septbatch"
+    user: "septadmin"
+    password: "Dharmavaram1@"
+    driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
 
 prod:
   postgres:

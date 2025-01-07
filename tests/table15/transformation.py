@@ -13,7 +13,7 @@ spark = SparkSession.builder.master("local[4]") \
 adls_account_name = "septauto"
 adls_container_name = "raw"
 key = "6TR8QTDWIWj0EshX2YRzMln2dYylTAVUECMoLHE2JPo0SwXt9Kbybqpca96qNTnndDFGB/t4UbTo+AStbQROcg=="
-input_file = "customer_data_03.csv"
+input_file = "customer_data_02.csv"
 # ADLS file path and credentials
 adls_path = f"abfss://{adls_container_name}@{adls_account_name}.dfs.core.windows.net/customer/{input_file}"
 spark.conf.set(f"fs.azure.account.key.{adls_account_name}.dfs.core.windows.net", key)

@@ -18,21 +18,21 @@ def spark_session(request):
     hadoop_azure = '/Users/admin/PycharmProjects/test_automation_project/jar/hadoop-azure-3.3.1.jar'
     sql_server = '/Users/admin/PycharmProjects/taf/jars/mssql-jdbc-12.2.0.jre8.jar'
     jar_path = snow_jar + ',' + postgres_jar + ',' + azure_storage + ',' + hadoop_azure + ',' + sql_server
-    spark = SparkSession.builder.master("local[4]") \
-        .appName("pytest_framework") \
-        .config("spark.jars", jar_path) \
-        .config("spark.driver.extraClassPath", jar_path) \
-        .config("spark.executor.extraClassPath", jar_path) \
-        .getOrCreate()
-
-    adls_account_name = "septauto"  # Your ADLS account name
-    adls_container_name = "raw"  # Your container name
-    key = "6TR8QTDWIWj0EshX2YRzMln2dYylTAVUECMoLHE2JPo0SwXt9Kbybqpca96qNTnndDFGB/t4UbTo+AStbQROcg=="  # Your Account Key
-
-    spark.conf.set(f"fs.azure.account.auth.type.{adls_account_name}.dfs.core.windows.net", "SharedKey")
-    spark.conf.set(f"fs.azure.account.key.{adls_account_name}.dfs.core.windows.net", key)
-
-    return spark
+    # spark = SparkSession.builder.master("local[4]") \
+    #     .appName("pytest_framework") \
+    #     .config("spark.jars", jar_path) \
+    #     .config("spark.driver.extraClassPath", jar_path) \
+    #     .config("spark.executor.extraClassPath", jar_path) \
+    #     .getOrCreate()
+    #
+    # adls_account_name = "septauto"  # Your ADLS account name
+    # adls_container_name = "raw"  # Your container name
+    # key = "6TR8QTDWIWj0EshX2YRzMln2dYylTAVUECMoLHE2JPo0SwXt9Kbybqpca96qNTnndDFGB/t4UbTo+AStbQROcg=="  # Your Account Key
+    #
+    # spark.conf.set(f"fs.azure.account.auth.type.{adls_account_name}.dfs.core.windows.net", "SharedKey")
+    # spark.conf.set(f"fs.azure.account.key.{adls_account_name}.dfs.core.windows.net", key)
+    #
+    # return spark
 
 @pytest.fixture(scope='module')
 def read_config(request):

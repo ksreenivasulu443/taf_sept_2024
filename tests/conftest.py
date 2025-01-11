@@ -138,7 +138,7 @@ def load_credentials(env="qa"):
     return credentials[env]
 
 # conftest.py
-from pytest_html import extras
+# from pytest_html import extras
 
 def pytest_html_results_table_header(cells):
     """Add a custom header for Failure Details in the HTML report."""

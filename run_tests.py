@@ -11,11 +11,11 @@ def main():
         default="dev",
         help="Specify the environment to run tests (default: dev)."
     )
-    parser.add_argument(
-        "--marker",
-        default='retest',
-        help="Run tests with a specific marker (e.g., 'count_check')."
-    )
+    # parser.add_argument(
+    #     "--marker",
+    #     default='retest',
+    #     help="Run tests with a specific marker (e.g., 'count_check')."
+    # )
     parser.add_argument(
         "--output-dir",
         default="reports",
@@ -31,12 +31,12 @@ def main():
         default="tests/table12",
         help="Specify the directory containing test files (default: tests)."
     )
-    parser.add_argument(
-        "--maxfail",
-        type=int,
-        default=None,
-        help="Stop after the specified number of failures."
-    )
+    # parser.add_argument(
+    #     "--maxfail",
+    #     type=int,
+    #     default=None,
+    #     help="Stop after the specified number of failures."
+    # )
     parser.add_argument(
         "--verbose",
         action="store_true",
@@ -52,8 +52,8 @@ def main():
         pytest_args.extend(["-m", args.marker])
 
     # Add maxfail if specified
-    if args.maxfail:
-        pytest_args.extend(["--maxfail", str(args.maxfail)])
+    # if args.maxfail:
+    #     pytest_args.extend(["--maxfail", str(args.maxfail)])
 
     # Enable verbose output if specified
     if args.verbose:

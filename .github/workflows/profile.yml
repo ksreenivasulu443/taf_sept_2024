@@ -3,11 +3,28 @@
 
 name: profile
 
+#on:
+#  push:
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
+
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        options:
+          - dev
+          - qa
+          - prod
+        description: Deployment environment
+      space:
+        type: choice
+        options:
+          - synthetic
+          - actual
+        description: Deployment environment
 
 permissions:
   contents: read
@@ -30,7 +47,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: dev code
       run: python main.py
-    - name: qa automation test
+    - name: qa automation test21
       run: pytest  tests/table21/test_table21.py -v -s
-    - name: qa automation test
+    - name: qa automation test20
       run: pytest  tests/table20/test_table20.py -v -s

@@ -7,7 +7,7 @@ dev:
     port: 5432
 
   oracle:
-    username: "oracle_user"
+    username: "test123"
     password: "oracle_password"
     connection_string: "jdbc:oracle:thin:@//dev-db-host:1521/ORCL"
 

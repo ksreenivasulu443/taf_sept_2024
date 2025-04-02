@@ -5,6 +5,7 @@ source:
   options:
     header: True
     delimiter: ","
+  exclude_cols: ["created_date","updated_date","hash_key","batch_id"]
 
 target:
   path: "/Users/admin/PycharmProjects/taf/input_files/Contact_info_t.csv"
@@ -13,6 +14,7 @@ target:
   options:
     header: True
     delimiter: ","
+  exclude_cols: ["created_date","updated_date","hash_key","batch_id"]
 
 validations:
   count_check:

@@ -1,4 +1,4 @@
-source:
+adls:
   path: "abfss://raw@septauto.dfs.core.windows.net/taxi_zone_lookup.csv"
   type: "csv"
   schema: "Y"
@@ -7,12 +7,35 @@ source:
     header: "True"
     delimiter: ","
 
-target:
-  type: "database"
-  transformation_sql : "N"
-  table: "NY_YELLO_TAXI.QA.TRIP_LOOKUP_RAW"
-  cred_lookup: "snowflake"
-  exclude_cols: ["create_user","create_date","record_id"]
+raw:
+  path: "abfss://raw@septauto.dfs.core.windows.net/taxi_zone_lookup.csv"
+  type: "csv"
+  schema: "Y"
+  exclude_cols: "NA"
+  options:
+    header: "True"
+    delimiter: ","
+
+bronze:
+  path: "abfss://raw@septauto.dfs.core.windows.net/taxi_zone_lookup_t.csv"
+  type: "csv"
+  schema: "Y"
+  exclude_cols: "NA"
+  options:
+    header: "True"
+    delimiter: ","
+
+silver:
+  path: "abfss://raw@septauto.dfs.core.windows.net/taxi_zone_lookup_t.csv"
+  type: "csv"
+  schema: "Y"
+  exclude_cols: "NA"
+  options:
+    header: "True"
+    delimiter: ","
+
+
+
 
 validations:
   count_check:

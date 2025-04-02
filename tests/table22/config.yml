@@ -1,17 +1,15 @@
 source:
-  path: "/Users/admin/PycharmProjects/taf_dec/input_files/Contact_info_t.csv"
-  type: "csv"
-  schema: "n"
-  options:
-    header: True
-    delimiter: ","
+  type: "database"
+  transformation: ["Y","python"]
+  table: "customer_silver_expected"
+  cred_lookup: "sqlserver"
   exclude_cols: ["created_date","updated_date","hash_key","batch_id"]
 
 target:
   type: "database"
-  transformation : ["n","sql"]
-  table: "employees"
-  cred_lookup: "postgres"
+  transformation : ["N","N"]
+  table: "customer_silver"
+  cred_lookup: "sqlserver"
   exclude_cols: ["created_date","updated_date","hash_key","batch_id"]
 
 validations:

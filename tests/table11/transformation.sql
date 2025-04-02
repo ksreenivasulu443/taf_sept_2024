@@ -1,1 +1,1 @@
-select * from employees
+select id1, id2,  from employees where employee=1

@@ -48,6 +48,6 @@ jobs:
     - name: dev code
       run: python main.py
     - name: qa automation test21
-      run: pytest  tests/table21/test_table21.py -v -s
+      run: pytest  tests/table21/test_table22.py -v -s
     - name: qa automation test20
       run: pytest  tests/table20/test_table20.py -v -s

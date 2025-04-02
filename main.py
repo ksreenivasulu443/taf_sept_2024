@@ -1,87 +1,114 @@
-# import streamlit as st
-# import pandas as pd
-# from faker import Faker
-# import random
-# import string
-# import os
-#
-# # Initialize Faker
-# fake = Faker()
-#
-# # Helper function to generate data for a single column
-# from datetime import datetime
-#
-# def generate_column_data(col_name, col_type, row_count, constraints):
-#     data = []
-#     for _ in range(row_count):
-#         if col_type == 'integer':
-#             data.append(random.randint(constraints.get('min', 0), constraints.get('max', 100)))
-#         elif col_type == 'float':
-#             data.append(random.uniform(constraints.get('min', 0.0), constraints.get('max', 100.0)))
-#         elif col_type == 'string':
-#             length = constraints.get('length', 10)
-#             data.append(''.join(random.choices(string.ascii_letters + string.digits, k=length)))
-#         elif col_type == 'date':
-#             start_date_str = constraints.get('start_date', '2000-01-01')
-#             end_date_str = constraints.get('end_date', '2030-01-01')
-#             start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
-#             end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
-#             data.append(fake.date_between(start_date=start_date, end_date=end_date))
-#         elif col_type == 'boolean':
-#             data.append(random.choice([True, False]))
-#         else:
-#             data.append(None)
-#     return data
-#
-# # Helper function to generate dataset
-# def generate_dataset(columns, row_count):
-#     data = {}
-#     for index, row in columns.iterrows():
-#         col_name = row['Column Name']
-#         col_type = row['Data Type']
-#         constraints = row['Constraints'] if isinstance(row['Constraints'], dict) else {}
-#         data[col_name] = generate_column_data(col_name, col_type, row_count, constraints)
-#     return pd.DataFrame(data)
-#
-# # Streamlit UI
-# st.title("Test Data Generator")
-#
-# # File upload
-# uploaded_file = st.file_uploader("Upload a CSV or Excel file with column names and data types", type=["csv", "xlsx"])
-#
-# if uploaded_file:
-#     if uploaded_file.name.endswith('csv'):
-#         columns_df = pd.read_csv(uploaded_file)
-#     else:
-#         columns_df = pd.read_excel(uploaded_file)
-#
-#     st.write("### Uploaded Column Details")
-#     st.write(columns_df)
-#
-#     # Input for number of records
-#     row_count = st.number_input("Number of Records to Generate", min_value=1, step=1)
-#
-#     # Generate Data Button
-#     if st.button("Generate Test Data"):
-#         test_data = generate_dataset(columns_df, row_count)
-#         st.write("### Generated Test Data")
-#         st.write(test_data)
-#
-#         # Export options
-#         export_format = st.selectbox("Select Export Format", ["CSV", "JSON", "Parquet"])
-#         if st.button("Export Data"):
-#             output_path = "generated_data." + export_format.lower()
-#             if export_format == "CSV":
-#                 test_data.to_csv(output_path, index=False)
-#             elif export_format == "JSON":
-#                 test_data.to_json(output_path, orient="records", lines=True)
-#             elif export_format == "Parquet":
-#                 test_data.to_parquet(output_path, index=False)
-#
-#             st.success(f"Data exported successfully to {output_path}")
-#             with open(output_path, "rb") as file:
-#                 st.download_button(label="Download File", data=file, file_name=output_path)
-#
+import csv
+from faker import Faker
+from random import randint, choice
+from datetime import datetime
+
+# Initialize Faker instance
+fake = Faker()
 
 
-print("hi hello1234")
+# Function to calculate age from birth_date
+def calculate_age(birth_date):
+    today = datetime.today()
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    return age
+
+
+# Function to calculate years spent in the organization from joining_date
+def calculate_years_spent(joining_date):
+    today = datetime.today()
+    years_spent = today.year - joining_date.year - ((today.month, today.day) < (joining_date.month, joining_date.day))
+    return years_spent
+
+
+# Function to calculate total salary (salary + bonus)
+def calculate_total_salary(salary, bonus):
+    return salary + bonus
+
+
+# Function to determine employee type based on years_spent_in_org
+def determine_employee_type(years_spent):
+    return 'Experienced' if years_spent >= 3 else 'Fresher'
+
+
+# Function to generate department data
+def generate_dept_data():
+    dept_data = {
+        'D001': 'HR',
+        'D002': 'IT',
+        'D003': 'Finance',
+        'D004': 'Sales'
+    }
+    dept_id = choice(list(dept_data.keys()))
+    dept_name = dept_data[dept_id]
+    return dept_id, dept_name
+
+
+# Function to generate employee data
+def generate_employee_data():
+    eid = fake.unique.uuid4()
+    emp_name = fake.name()
+    birth_date = fake.date_of_birth(minimum_age=18, maximum_age=60)
+    joining_date = fake.date_this_decade(before_today=True, after_today=False)
+    salary = randint(40000, 70000)
+    bonus = randint(1000, 10000)
+    dept_id, dept_name = generate_dept_data()
+
+    # Calculations based on mappings
+    age = calculate_age(birth_date)
+    years_spent_in_org = calculate_years_spent(joining_date)
+    total_salary = calculate_total_salary(salary, bonus)
+    employee_type = determine_employee_type(years_spent_in_org)
+
+    # Return data as a dictionary
+    return {
+        "eid": eid,
+        "emp_name": emp_name,
+        "birth_date": birth_date.strftime('%Y-%m-%d'),
+        "joining_date": joining_date.strftime('%Y-%m-%d'),
+        "salary": salary,
+        "bonus": bonus,
+        "dept_id": dept_id,
+        "dept_name": dept_name,
+        "age": age,
+        "years_spent_in_org": years_spent_in_org,
+        "total_salary": total_salary,
+        "employee_type": employee_type
+    }
+
+
+# Function to generate a CSV file with the specified number of rows
+def generate_csv(num_records):
+    # Generate the employee data
+    employee_data = [generate_employee_data() for _ in range(num_records)]
+
+    # Get the current date to format the filename
+    current_date = datetime.today().strftime('%Y%m%d')
+
+    # Define the file name based on customer and batch date
+    file_name = f"customer_{current_date}.csv"
+
+    # Define the CSV fieldnames (columns)
+    fieldnames = ["eid", "emp_name", "birth_date", "joining_date", "salary", "bonus", "dept_id", "dept_name", "age",
+                  "years_spent_in_org", "total_salary", "employee_type"]
+
+    # Write the data to a CSV file
+    with open(file_name, mode='w', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+        # Write the header
+        writer.writeheader()
+
+        # Write employee data
+        for employee in employee_data:
+            writer.writerow(employee)
+
+    print(f"Test data has been written to {file_name}")
+
+
+# Prompt for the number of records
+try:
+    num_records = int(input("Enter the number of test records to generate: "))
+    generate_csv(num_records)
+except ValueError:
+    print("Please enter a valid number.")

@@ -9,7 +9,8 @@ from src.data_validations.data_compare import data_compare
 from src.data_validations.schema_validation import schema_check
 
 
-
+pytest.mark('smoke')
+pytest.mark('smoke')
 def test_count_check(read_data,read_config):
     source,target = read_data
     print(source.columns)
@@ -18,6 +19,7 @@ def test_count_check(read_data,read_config):
     key_columns = config['validations']['count_check']['key_columns']
     print("key col", key_columns)
     assert count_check(source=source,target=target,key_columns=key_columns) == 'PASS'
+
 
 
 def test_duplicate_check(read_data,read_config):

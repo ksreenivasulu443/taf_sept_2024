@@ -1,27 +1,27 @@
 source:
-  path: "abfss://raw@septauto.dfs.core.windows.net/*.parquet"
-  type: "parquet"
-  schema: "N"
-  exclude_cols: "NA"
+  path: "/Users/admin/PycharmProjects/taf/input_files/Contact_info_s.csv"
+  type: "csv"
+  schema: "Y"
   options:
-    header: "NA"
-    delimiter: "NA"
+    header: True
+    delimiter: ","
+  exclude_cols: ["created_date","updated_date","hash_key","batch_id"]
 
 target:
   type: "database"
-  transformation_sql : "N"
-  table: "NY_YELLO_TAXI.QA.TRIP_DATA_RAW"
+  transformation : ["N",'N']
+  table: "TEST_DB.TEST_SCHEMA.CONTACT_INFO_RAW"
   cred_lookup: "snowflake"
   exclude_cols: ["create_user","create_date","record_id"]
 
 validations:
   count_check:
-    key_columns: ["VendorID","tpep_pickup_datetime" ]
+    key_columns: ["Identifier"]
   duplicate_check:
-    key_columns: ["VendorID","tpep_pickup_datetime"]
+    key_columns: ["Identifier"]
   null_check:
-    null_columns: ["VendorID","tpep_pickup_datetime"]
+    null_columns: ["Identifier",'middle_initial']
   uniqueness_check:
-    unique_columns: [ "VendorID","tpep_pickup_datetime" ]
+    unique_columns: [ "Identifier",'surname' ]
   data_compare_check:
-    key_column: ["VendorID","tpep_pickup_datetime"]
+    key_column: ["identifier"]

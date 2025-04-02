@@ -24,12 +24,13 @@ qa:
     port: 5432
 
   snowflake:
-    url: "jdbc:snowflake://oglxvsr-va28914.snowflakecomputing.com"
-    user: "KATSREEN100"
-    password: "Dharmavaram1@"
-    database: "NY_YELLO_TAXI"
-    schema: "QA"
+    url: "jdbc:snowflake://tqtrcxi-cw03901.snowflakecomputing.com"
+    user: "KSREENIVASULU"
+    password: "Dharmavaram@2024"
+    database: "TEST_DB"
+    schema: "TEST_SCHEMA"
     driver: "net.snowflake.client.jdbc.SnowflakeDriver"
+
   sqlserver:
     url: "jdbc:sqlserver://septauto.database.windows.net:1433;database=septbatch"
     user: "septadmin"

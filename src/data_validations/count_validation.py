@@ -18,5 +18,3 @@ def count_check(source, target,key_columns):
         records_only_in_target(source,target,key_columns)
 
     return status
-
-

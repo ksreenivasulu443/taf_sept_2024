@@ -1,3 +1,4 @@
+from gitdb.fun import delta_types
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lit, current_timestamp, sha2, concat_ws, date_format
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
@@ -27,6 +28,9 @@ jdbc_properties = {
     "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver"
 }
 
+
+# delta - target also containing delta(1)
+#         you need to make previously loaded data is not touched
 
 bronze_df = spark.read.jdbc(url=jdbc_url, table='customer_bronze', properties=jdbc_properties)
 
